@@ -20,3 +20,6 @@ Use pm2 to deploy app on production enviroment.
 ```
 pm2 startOrReload pm2.json
 ```
+
+https://thinkjs.org/zh-cn/doc/3.0/index.html
+https://mp.weixin.qq.com/debug/wxadoc/dev/

@@ -1,7 +1,8 @@
 const fileCache = require('think-cache-file');
 const nunjucks = require('think-view-nunjucks');
 const fileSession = require('think-session-file');
-const mysql = require('think-model-mysql');
+// const mysql = require('think-model-mysql');
+const mongo = require('think-mongo');
 const {Console, File, DateFile} = require('think-logger3');
 const path = require('path');
 const isDev = think.env === 'development';
@@ -28,22 +29,31 @@ exports.cache = {
  * @type {Object}
  */
 exports.model = {
-  type: 'mysql',
+  type: 'mongo',
   common: {
     logConnect: isDev,
     logSql: isDev,
     logger: msg => think.logger.info(msg)
   },
-  mysql: {
-    handle: mysql,
-    database: '',
-    prefix: 'think_',
-    encoding: 'utf8',
+  // mysql: {
+  //   handle: mysql,
+  //   database: '',
+  //   prefix: 'think_',
+  //   encoding: 'utf8',
+  //   host: '127.0.0.1',
+  //   port: '',
+  //   user: 'root',
+  //   password: 'root',
+  //   dateStrings: true
+  // }
+  mongo: {
+    handle: mongo,
     host: '127.0.0.1',
-    port: '',
-    user: 'root',
-    password: 'root',
-    dateStrings: true
+    port: 27017,
+    user: '',
+    password: '',
+    database: 'test', // 数据库名称
+    options: ''
   }
 };
 
