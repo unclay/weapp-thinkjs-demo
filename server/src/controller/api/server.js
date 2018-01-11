@@ -12,7 +12,9 @@ module.exports = class extends BaseRest {
   getAction() {
     this.success({
       queryCode: 'this.ctx.query',
-      query: this.ctx.query
+      query: this.ctx.query,
+      paramCode: 'this.param()',
+      param: this.ctx.param(),
     })
   }
 };
