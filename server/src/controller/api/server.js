@@ -15,6 +15,7 @@ module.exports = class extends BaseRest {
       query: this.ctx.query,
       paramCode: 'this.param()',
       param: this.ctx.param(),
+      api: this.api.get(),
     })
   }
 };
