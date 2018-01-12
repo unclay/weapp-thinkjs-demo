@@ -38,6 +38,18 @@ module.exports = class extends BaseRest {
     });
   }
   getAction() {
+    /*
+    ## GET接口
+    ### 接口描述
+        test
+    ### 参数
+        null
+    ### 正确返回
+        {
+          error_code: 0,
+          data: ''
+        }
+    */
     this.success('asdf');
   }
 };
