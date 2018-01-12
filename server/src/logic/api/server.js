@@ -1,7 +1,7 @@
 module.exports = class extends think.Logic {
-	__before() {
-		this.allowMethods = 'get,post'
-	}
+  __before() {
+    this.allowMethods = 'get,post'
+  }
   getAction() {
     const rules = {
       num: {

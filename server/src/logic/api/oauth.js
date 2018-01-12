@@ -1,6 +1,6 @@
 module.exports = class extends think.Logic {
   __before() {
-    this.allowMethods = 'post'
+    this.allowMethods = 'post';
   }
   postAction() {
     const rules = {
@@ -8,9 +8,9 @@ module.exports = class extends think.Logic {
         string: true,
         required: true,
         trim: true,
-        method: 'POST',
+        method: 'POST'
       }
-    }
+    };
     const flag = this.validate(rules);
     if (!flag) {
       return this.fail(`validate error`, this.validateErrors);

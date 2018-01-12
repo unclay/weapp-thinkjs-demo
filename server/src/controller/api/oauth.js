@@ -4,6 +4,14 @@ const Wxcrypt = require('./wxcrypt');
 
 module.exports = class extends BaseRest {
   async postAction() {
+    let userInfo;
+    const sessionUser = await this.session('user');
+    if (sessionUser && sessionUser.openid) {
+      userInfo = await this.model('user').getUser(sessionUser.openid);
+      return this.success({
+        user: userInfo
+      });
+    }
     const code = this.post('code');
     const rawData = this.post('rawData');
     const signature = this.post('signature');
@@ -17,20 +25,19 @@ module.exports = class extends BaseRest {
       return this.fail(1100, '数据签名校验失败');
     }
     const pc = new Wxcrypt(this.api.appid, result.session_key);
-    const userInfo = pc.decryptData(encryptedData, iv);
+    userInfo = pc.decryptData(encryptedData, iv);
     userInfo.openid = userInfo.openid || userInfo.openId;
     userInfo.unionid = userInfo.unionid || userInfo.unionId;
+    await this.model('user').addUser(userInfo);
+    await this.session('user', {
+      unionid: userInfo.openid
+    });
+    userInfo = await this.model('user').getUser(userInfo.openid);
     return this.success({
-      code,
-      rawData,
-      signature,
-      encryptedData,
-      iv,
-      userInfo,
-      api: result,
-    })
+      user: userInfo
+    });
   }
   getAction() {
-    this.success('asdf')
+    this.success('asdf');
   }
 };

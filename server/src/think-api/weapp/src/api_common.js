@@ -10,7 +10,6 @@ class API {
   constructor(app) {
     let api = app.think.config('api');
     api = api[api.type];
-    console.log(api);
     this.options = api.options;
     this.debug = false;
     this.appid = api.appid;
@@ -18,12 +17,6 @@ class API {
     this.store = '';
     this.prefix = 'https://api.weixin.qq.com/sns';
     this.defaults = {};
-  }
-
-  log(msg1 = '', msg2 = '', msg3 = '', msg4 = '') {
-    if (this.debug) {
-      console.log.call(this, '[weapp]', msg1, msg2, msg3, msg4);
-    }
   }
 
   setOpts(opts) {

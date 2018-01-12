@@ -28,12 +28,21 @@ Page({
               wx.request({
                 method: 'POST',
                 url: 'http://127.0.0.1:8360/api/oauth',
+                header: {
+                  cookie: wx.getStorageSync('cookie_oauth')
+                },
                 data: {
                   code: res.code,
                   rawData: resInfo.rawData,
                   signature: resInfo.signature,
                   encryptedData: resInfo.encryptedData,
                   iv: resInfo.iv,
+                },
+                success: function (resOauth) {
+                  const cookie = resOauth.header['Set-Cookie'].match(/\w+=\w{8}(-\w{4}){3}-\w{12}/);
+                  if (cookie && cookie[0]) {
+                    wx.setStorageSync('cookie_oauth', cookie[0])
+                  }
                 }
               })
             }
